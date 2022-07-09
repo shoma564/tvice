@@ -8,27 +8,32 @@ services:
       dockerfile: Dockerfile
     ports: 
       - 5000:5000
-#    volumes: 
-#      - ./app:/app
-    restart: always
-    tty: true
-
-
-  mariadb:
-    container_name: mariadb
-    image: mariadb:latest
-    ports: 
-      - 3306:3306
     volumes: 
-      - ./db/data:/var/lib/mariadb
+      - ./app/pyapp:/usr/src/app/
+      - ./app/pyapp/templates:/usr/src/app/templates
     restart: always
     tty: true
-    environment:
-      MARIADB_ROOT_PASSWORD: tmcit
-      MARIADB_DATABASE: tvice
-      MARIADB_USER: docker
-      MARIADB_PASSWORD: docker
-      TZ: 'Asia/Tokyo'
+
+
+#  db:
+#    restart: always
+#    build:
+#      context: ./
+#      dockerfile: ./db/Dockerfile
+#    container_name: mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: tmcit
+#      MYSQL_DATABASE: Taad_db
+#      MYSQL_USER: docker
+#      MYSQL_PASSWORD: docker
+#      TZ: 'Asia/Tokyo'
+#    volumes:
+#    - ./db/data:/var/lib/mysql
+#    - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+#    - ./db/initdb.d/:/docker-entrypoint-initdb.d
+#    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci   
+#    ports:
+#      - 3306:3306
 
   nginx:
     container_name: nginx
