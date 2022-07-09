@@ -15,7 +15,7 @@ def index():
 @app.route('/name', methods=["POST"])
 def name():
     global name
-
+    name = request.form["name"]
     return render_template("name.html", name = name)
 
 @app.route('/menu')
