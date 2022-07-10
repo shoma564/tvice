@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, send, emit
 import PIL.Image, PIL.ImageDraw, PIL.ImageFont
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./templates/img')
 
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, cors_allowed_origins='*')
@@ -12,6 +12,9 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 user_count = 0
 # 現在のテキスト
 text = ""
+imgx = ""
+imgy = ""
+
 
 # ユーザーが新しく接続すると実行
 @socketio.on('connect')
@@ -45,7 +48,6 @@ def text_update_request(json):
 
 
 
-
 @app.route('/')
 def index():
     global name
@@ -74,7 +76,10 @@ def show():
 
 
 
-
+@app.route('/test')
+def test():
+    message = "hello world"
+    return render_template("test.html", message = message)
 
 
 
